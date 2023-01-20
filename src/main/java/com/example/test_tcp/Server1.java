@@ -49,7 +49,7 @@ public class Server1 extends Application {
                     String srvMsgReceived = bufferedReader.readLine();
 
                     if (srvMsgReceived != null) {
-
+                        System.out.println("RowDaten: " + srvMsgReceived);
                         String[] parts = new String[4];
                         parts = srvMsgReceived.split(";");
                         if (parts.length != 4) {
@@ -111,7 +111,7 @@ public class Server1 extends Application {
         if(Operant1.equals("flightnumber") && Operant2.equals("all"))
         {
             ArrayList<String> Flugnummern = new ArrayList<String>();
-            BufferedReader bufReader = new BufferedReader(new FileReader("/Users/stephanweidinger/Downloads/Test_TCP 6/data/flightnumber.txt"));
+            BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt"));
             line = bufReader.readLine();
 
             while(line != null)
@@ -122,17 +122,18 @@ public class Server1 extends Application {
 
             bufReader.close();
 
-            String listString = String.join("; ", Flugnummern);
+            String listString = String.join(";", Flugnummern);
             System.out.println("FlugnummerString: " + listString);
 
             return listString;
         }else if(Operant1.equals("flightnumber") )
         {
+            System.out.println("Vorm oeffnen vom File flightnumber: " + Operant2);
             try {
-                ArrayList<String> flugdaten = new ArrayList<String>();
-                BufferedReader bufReader = new BufferedReader(new FileReader("//Users//stephanweidinger//Downloads//Test_TCP 6//data//" + Operant2));
+                ArrayList<String> flugdaten = new ArrayList<>();
+                BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + Operant2 + ".txt"));
                 line = bufReader.readLine();
-
+                System.out.println("Im File oeffnen");
                 while(line != null)
                 {
                     flugdaten.add(line);
@@ -144,14 +145,15 @@ public class Server1 extends Application {
                 System.out.println(listString);
                 return listString;
             }catch( Exception e){
-                System.out.println("Client Disconnected");
+                System.out.println("Client Disconnected wegen file");
             }
+            return "Wrong Data";
         }
 
         if(Operant1.equals("airplane")  )
         {
             ArrayList<String> Airplane = new ArrayList<String>();
-            BufferedReader bufReader = new BufferedReader(new FileReader("/Users/stephanweidinger/Downloads/Test_TCP 6/data/airplane.txt"));
+            BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\airplane.txt"));
             line = bufReader.readLine();
 
             while(line != null){
@@ -179,8 +181,8 @@ public class Server1 extends Application {
         String command = null;
         String[] parts = null;
         parts = Operant2.split(",", 2);
-        File fflightnumber = new File("/Users/stephanweidinger/Downloads/Test_TCP 6/data/flightnumber.txt");
-        File fairplane = new File("/Users/stephanweidinger/Downloads/Test_TCP 6/data/airplane.txt");
+        File fflightnumber = new File("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt");
+        File fairplane = new File("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\");
         mode = parts[0];
         command = parts[1];
 
@@ -272,7 +274,7 @@ public class Server1 extends Application {
                             //     try {
 
                             // Get the file
-                            neuerflug = "/Users/stephanweidinger/Downloads/Test_TCP 6/data/" + flightdata[0] + ".txt";
+                            neuerflug = "C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + flightdata[0] + ".txt";
                             File f = new File(neuerflug);
 
                             // Create new file
@@ -419,7 +421,7 @@ public class Server1 extends Application {
                 //     System.out.println(listString);
                 return ("Booked: " + command);
             }catch( Exception e){
-                System.out.println("Client Disconnected");
+                System.out.println("Client Disconnected in File");
             }
         }
 

@@ -178,26 +178,30 @@ public class HelloController implements Initializable {
             timearr.setText(arrival);
             airp.setText(airpl);
             String belegung = null;
+
             belegung = c.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
 
-            System.out.print("Belegung vor split:" + belegung);
+            System.out.println("Belegung vor split:" + belegung);
             String [] seating = belegung.split(";");
-            seatempty.removeAll();
-            bookedseat.removeAll();
+            seatempty.clear();
+            bookedseat.clear();
             for(int x = 0; x<seating.length ; x++)
             {
                 String [] sitzteilung = seating[x].split("#");
-                if(sitzteilung.length < 2) {
+                System.out.println("seating: " + seating[x] + "laenge" + sitzteilung.length);
+                if(sitzteilung.length < 3) {
                     seatempty.add(seating[x]);
                 }else{
                     bookedseat.add(seating[x]);
                 }
 
             }
+            emptySeats.setItems(seatempty);
+            bookedSeats.setItems(bookedseat);
 
         }
 System.out.println("Gebucht:" + bookedseat.toString());
-        System.out.print("Frei: " + seatempty.toString());
+        System.out.println("Frei: " + seatempty.toString());
     }
 
 
