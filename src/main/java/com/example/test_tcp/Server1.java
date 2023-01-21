@@ -15,16 +15,19 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
+import java.util.LinkedList;
+import java.util.concurrent.Delayed;
 
 
 public class Server1 extends Application {
     ObservableList<String> logtext = FXCollections.emptyObservableList();
+    LinkedList<String> fifolog = new LinkedList<String>();
     @FXML
-    ListView<String>  logview = new ListView<>();
+    ListView<String> logview = new ListView<>();
     BufferedReader bufferedReader = null;
     BufferedWriter bufferedWriter = null;
     ServerSocket serverSocket = null;
+
 
     public Server1(int socket) throws IOException {
 
@@ -34,7 +37,7 @@ public class Server1 extends Application {
 
         String Operant1 = null;
         String Operant2 = null;
-
+        fifolog.add("Server gestartet");
         while (true) {
 
 
@@ -44,12 +47,12 @@ public class Server1 extends Application {
                 bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 bufferedWriter = new BufferedWriter((new OutputStreamWriter(clientSocket.getOutputStream())));
                 int run = 1;
-                while (run > 0 ) {
+                while (run > 0) {
 
                     String srvMsgReceived = bufferedReader.readLine();
 
                     if (srvMsgReceived != null) {
-                        System.out.println("RowDaten: " + srvMsgReceived);
+
                         String[] parts = new String[4];
                         parts = srvMsgReceived.split(";");
                         if (parts.length != 4) {
@@ -98,24 +101,22 @@ public class Server1 extends Application {
 //
 
 
-            }catch( Exception e){
-                System.out.println("Client Disconnected");
+            } catch (Exception e) {
+                System.out.println("Client Disconnected main");
             }
         }
     }
 
-    public String GetHandler(String Operant1, String Operant2) throws IOException{
+    public String GetHandler(String Operant1, String Operant2) throws IOException {
 
         String line = null;
 
-        if(Operant1.equals("flightnumber") && Operant2.equals("all"))
-        {
+        if (Operant1.equals("flightnumber") && Operant2.equals("all")) {
             ArrayList<String> Flugnummern = new ArrayList<String>();
             BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt"));
             line = bufReader.readLine();
 
-            while(line != null)
-            {
+            while (line != null) {
                 Flugnummern.add(line);
                 line = bufReader.readLine();
             }
@@ -126,16 +127,14 @@ public class Server1 extends Application {
             System.out.println("FlugnummerString: " + listString);
 
             return listString;
-        }else if(Operant1.equals("flightnumber") )
-        {
-            System.out.println("Vorm oeffnen vom File flightnumber: " + Operant2);
+        } else if (Operant1.equals("flightnumber")) {
+            //    System.out.println("Vorm oeffnen vom File flightnumber: " + Operant2);
             try {
                 ArrayList<String> flugdaten = new ArrayList<>();
                 BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + Operant2 + ".txt"));
                 line = bufReader.readLine();
                 System.out.println("Im File oeffnen");
-                while(line != null)
-                {
+                while (line != null) {
                     flugdaten.add(line);
                     line = bufReader.readLine();
                 }
@@ -144,19 +143,18 @@ public class Server1 extends Application {
                 String listString = String.join("; ", flugdaten);
                 System.out.println(listString);
                 return listString;
-            }catch( Exception e){
+            } catch (Exception e) {
                 System.out.println("Client Disconnected wegen file");
             }
             return "Wrong Data";
         }
 
-        if(Operant1.equals("airplane")  )
-        {
+        if (Operant1.equals("airplane")) {
             ArrayList<String> Airplane = new ArrayList<String>();
             BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\airplane.txt"));
             line = bufReader.readLine();
 
-            while(line != null){
+            while (line != null) {
                 Airplane.add(line);
                 line = bufReader.readLine();
             }
@@ -171,6 +169,7 @@ public class Server1 extends Application {
 
     /**
      * SetHandler beschreibt in Englsich
+     *
      * @param Operant1
      * @param Operant2
      * @return
@@ -187,7 +186,6 @@ public class Server1 extends Application {
         command = parts[1];
 
 
-
         if (Operant1.equals("flightnumber")) {
 
             ArrayList<String> flightnumber = new ArrayList<String>();
@@ -195,7 +193,7 @@ public class Server1 extends Application {
             try {
                 BufferedReader bufReader = new BufferedReader(new FileReader(fflightnumber));
                 line = bufReader.readLine();
-                while(line != null){
+                while (line != null) {
                     flightnumber.add(line);
                     line = bufReader.readLine();
                 }
@@ -231,7 +229,6 @@ public class Server1 extends Application {
                         }
 
 
-
                     }
                 }
                 writer.close();
@@ -264,7 +261,7 @@ public class Server1 extends Application {
                         }
                     }
                     writer.close();
-                    if(flightexist != 0) {
+                    if (flightexist != 0) {
                         String[] flightdata = null;
                         //  OS842#1propp#Dep:12.5.2022-12:20#Arr:13.5.2022-18:00#Src:London#Dest:Easterisland
 
@@ -352,7 +349,7 @@ public class Server1 extends Application {
             try {
                 BufferedReader bufReader = new BufferedReader(new FileReader(fairplane));
                 line = bufReader.readLine();
-                while(line != null){
+                while (line != null) {
                     airplane.add(line);
                     line = bufReader.readLine();
                 }
@@ -388,8 +385,7 @@ public class Server1 extends Application {
             }
         }
 
-        if(mode.equals("book"))
-        {
+        if (mode.equals("book")) {
             //String[] seat = null;
             String line = null;
 
@@ -397,8 +393,7 @@ public class Server1 extends Application {
                 ArrayList<String> sitzplatz = new ArrayList<String>();
                 BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\Documents\\Java\\Test_TCP\\data\\" + Operant1 + ".txt"));
                 line = bufReader.readLine();
-                while(line != null)
-                {
+                while (line != null) {
                     sitzplatz.add(line);
                     line = bufReader.readLine();
                 }
@@ -406,7 +401,7 @@ public class Server1 extends Application {
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\molti\\Documents\\Java\\Test_TCP\\data\\" + Operant1 + ".txt", false));
                 String place = null;
-                place = command.substring(0,4);
+                place = command.substring(0, 4);
                 for (String a : sitzplatz) {
                     if ((a.startsWith(place))) {
                         writer.write(command);
@@ -420,45 +415,31 @@ public class Server1 extends Application {
                 String listString = String.join("; ", sitzplatz);
                 //     System.out.println(listString);
                 return ("Booked: " + command);
-            }catch( Exception e){
+            } catch (Exception e) {
                 System.out.println("Client Disconnected in File");
             }
         }
 
 
-
-
         return "command complete";
     }
 
-    public static void main(String[] args) throws IOException{
 
-        Server1 a =  new Server1(1287);
-        // Server b =  new Server(1286);
-        // Server c =  new Server(1288);
+    public static void main(String[] args) throws IOException {
+
+        Server1 a = new Server1(1287);
+        //   Server1 b =  new Server1(1286);
+        //   Server1 c =  new Server1(1288);
+
     }
+
     @Override
-    public void start(Stage stage) throws IOException {
-//UI von Server
+    public void start(Stage primaryStage) throws Exception {
 
-        VBox outerVBox = new VBox();
-        outerVBox.setPadding(new Insets(10));
-        outerVBox.setSpacing(10);
-        BorderPane borderPane = new BorderPane();
-
-        logview.setItems(logtext);
-
-        outerVBox.getChildren().addAll(logview, borderPane);
-
-        Scene scene = new Scene(outerVBox, 500, 500);
-
-        stage.setTitle("TicketRequest");
-        stage.setScene(scene);
-        stage.show();
     }
-
-
 }
+
+
 
 
 
