@@ -15,16 +15,19 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
+import java.util.LinkedList;
+import java.util.concurrent.Delayed;
 
 
 public class Server1 extends Application {
     ObservableList<String> logtext = FXCollections.emptyObservableList();
+    LinkedList<String> fifolog = new LinkedList<String>();
     @FXML
     ListView<String>  logview = new ListView<>();
     BufferedReader bufferedReader = null;
     BufferedWriter bufferedWriter = null;
     ServerSocket serverSocket = null;
+
 
     public Server1(int socket) throws IOException {
 
@@ -67,7 +70,7 @@ public class Server1 extends Application {
                             System.out.println("Client ID: " + ID + "\nBefehl: " + Command + "\nFlugnummer: " + Operant1 + "\nOperant: " + Operant2);
                             if (Command.equals("GET")) {
                                 String text1 = GetHandler(Operant1, Operant2);
-                                //logtext.addAll("Server -> Client: " + text1);
+                                LogAdd("Server -> Client: " + text1);
                                 bufferedWriter.write(text1);
                             } else if (Command.equals("SET")) {
                                 String text = SetHandler(Operant1, Operant2);
@@ -431,11 +434,25 @@ public class Server1 extends Application {
         return "command complete";
     }
 
+    public LinkedList<String> GetLogRead ()
+    {System.out.println("Bin im logread");
+               return fifolog;
+    }
+    public void LogAdd (String logtext)
+    {
+        System.out.println("Logtext hinzugefegt: " + logtext);
+        fifolog.add(logtext);
+
+        return ;
+    }
+
+
     public static void main(String[] args) throws IOException{
 
         Server1 a =  new Server1(1287);
-        // Server b =  new Server(1286);
+        //Server b =  new Server(1286);
         // Server c =  new Server(1288);
+
     }
     @Override
     public void start(Stage stage) throws IOException {
@@ -446,7 +463,7 @@ public class Server1 extends Application {
         outerVBox.setSpacing(10);
         BorderPane borderPane = new BorderPane();
 
-        logview.setItems(logtext);
+        //logview.setItems(logtext);
 
         outerVBox.getChildren().addAll(logview, borderPane);
 

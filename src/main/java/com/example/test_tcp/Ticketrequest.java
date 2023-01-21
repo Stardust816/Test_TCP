@@ -1,6 +1,8 @@
 package com.example.test_tcp;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Ticketrequest extends Application {
-
+    ObservableList<String> LogServer1 = FXCollections.emptyObservableList();
     private Client c;
 
     public Ticketrequest() throws IOException {
