@@ -113,7 +113,8 @@ public class Server1 extends Application {
 
         if (Operant1.equals("flightnumber") && Operant2.equals("all")) {
             ArrayList<String> Flugnummern = new ArrayList<String>();
-            BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt"));
+            //BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt"));
+            BufferedReader bufReader = new BufferedReader(new FileReader("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/flightnumber.txt"));
             line = bufReader.readLine();
 
             while (line != null) {
@@ -131,7 +132,8 @@ public class Server1 extends Application {
             //    System.out.println("Vorm oeffnen vom File flightnumber: " + Operant2);
             try {
                 ArrayList<String> flugdaten = new ArrayList<>();
-                BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + Operant2 + ".txt"));
+                //BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + Operant2 + ".txt"));
+                BufferedReader bufReader = new BufferedReader(new FileReader("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/" + Operant2 + ".txt"));
                 line = bufReader.readLine();
                 System.out.println("Im File oeffnen");
                 while (line != null) {
@@ -151,7 +153,8 @@ public class Server1 extends Application {
 
         if (Operant1.equals("airplane")) {
             ArrayList<String> Airplane = new ArrayList<String>();
-            BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\airplane.txt"));
+            //BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\airplane.txt"));
+            BufferedReader bufReader = new BufferedReader(new FileReader("Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/airplane.txt"));
             line = bufReader.readLine();
 
             while (line != null) {
@@ -180,8 +183,10 @@ public class Server1 extends Application {
         String command = null;
         String[] parts = null;
         parts = Operant2.split(",", 2);
-        File fflightnumber = new File("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt");
-        File fairplane = new File("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\");
+        //File fflightnumber = new File("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt");
+        File fflightnumber = new File("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/flightnumber.txt");
+        //File fairplane = new File("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\");
+        File fairplane = new File("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/");
         mode = parts[0];
         command = parts[1];
 
@@ -271,7 +276,8 @@ public class Server1 extends Application {
                             //     try {
 
                             // Get the file
-                            neuerflug = "C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + flightdata[0] + ".txt";
+                            //neuerflug = "C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\" + flightdata[0] + ".txt";
+                            neuerflug = "Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/" + flightdata[0] + ".txt";
                             File f = new File(neuerflug);
 
                             // Create new file
@@ -391,7 +397,8 @@ public class Server1 extends Application {
 
             try {
                 ArrayList<String> sitzplatz = new ArrayList<String>();
-                BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\Documents\\Java\\Test_TCP\\data\\" + Operant1 + ".txt"));
+                //BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\Documents\\Java\\Test_TCP\\data\\" + Operant1 + ".txt"));
+                BufferedReader bufReader = new BufferedReader(new FileReader("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/" + Operant1 + ".txt"));
                 line = bufReader.readLine();
                 while (line != null) {
                     sitzplatz.add(line);
@@ -399,7 +406,8 @@ public class Server1 extends Application {
                 }
                 bufReader.close();
 
-                BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\molti\\Documents\\Java\\Test_TCP\\data\\" + Operant1 + ".txt", false));
+                //BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\molti\\Documents\\Java\\Test_TCP\\data\\" + Operant1 + ".txt", false));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/" + Operant1 + ".txt", false));
                 String place = null;
                 place = command.substring(0, 4);
                 for (String a : sitzplatz) {
@@ -412,7 +420,7 @@ public class Server1 extends Application {
                     }
                 }
                 writer.close();
-                String listString = String.join("; ", sitzplatz);
+                String listString = String.join(";", sitzplatz);
                 //     System.out.println(listString);
                 return ("Booked: " + command);
             } catch (Exception e) {
@@ -427,7 +435,7 @@ public class Server1 extends Application {
 
     public static void main(String[] args) throws IOException {
 
-        Server1 a = new Server1(1287);
+        //  Server1 a = new Server1(1287);
         //   Server1 b =  new Server1(1286);
         //   Server1 c =  new Server1(1288);
 

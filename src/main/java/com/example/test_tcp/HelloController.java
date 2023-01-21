@@ -332,6 +332,47 @@ public class HelloController extends Thread implements Initializable {
         bookedSeats.setItems(bookedseat);
     }
 
+
+    @FXML
+    private void delete(){
+
+        String wer = name.getText();
+        String wo = bookedSeats.getSelectionModel().getSelectedItem().toString();
+        String [] newwo = wo.split("#");
+        String del = newwo[0]+"#"+newwo[1]+"#";
+
+
+        String reise = "#R" + reisepass.getText();
+        //System.out.println(reise);
+        String buch = null;
+        buch = ("666;SET;" + flightNumber.getSelectionModel().getSelectedItem().toString() + ";book,"+del.trim());
+        System.out.println(del);
+        c.sendMessage(buch);
+
+        bookedseat.remove(wo);
+        String belegung = null;
+
+        belegung = c.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
+
+        //System.out.println("Belegung vor split:" + belegung);
+        String [] seating = belegung.split(";");
+        seatempty.clear();
+        bookedseat.clear();
+        for(int x = 0; x<seating.length ; x++)
+        {
+            String [] sitzteilung = seating[x].split("#");
+            //System.out.println("seating: " + seating[x] + "laenge" + sitzteilung.length);
+            if(sitzteilung.length < 3) {
+                seatempty.add(seating[x]);
+            }else{
+                bookedseat.add(seating[x]);
+            }
+        }
+        emptySeats.setItems(seatempty);
+        bookedSeats.setItems(bookedseat);
+
+    }
+
     //flightNumber Combobox mit Werten befüllen***
     private void setChoiceBoxFlightnumber() throws IOException {
 

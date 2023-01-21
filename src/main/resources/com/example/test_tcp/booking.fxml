@@ -98,7 +98,7 @@
             <TextField fx:id="airp" layoutX="31.0" layoutY="245.0" />
             <ComboBox fx:id="flightNumber" layoutX="25.0" layoutY="278.0" onAction="#onFlightNumberChanged" prefHeight="26.0" prefWidth="171.0" promptText="Flugnummer wählen:" />
             <Button fx:id="book" layoutX="273.0" layoutY="322.0" mnemonicParsing="false" onAction="#btnBook" text="Book" />
-            <Button fx:id="del" layoutX="509.0" layoutY="322.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="del" layoutX="509.0" layoutY="322.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
             <TextField fx:id="name" layoutX="26.0" layoutY="24.0" promptText="Name:" />
             <TextField fx:id="reisepass" layoutX="446.0" layoutY="25.0" promptText="Reisepassnummer:" />
       </children>
