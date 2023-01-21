@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Ticketrequest extends Application {
-    ObservableList<String> LogServer1 = FXCollections.emptyObservableList();
+    ObservableList<String> LogServer1 = FXCollections.<String>emptyObservableList();
     private Client c;
 
     public Ticketrequest() throws IOException {
