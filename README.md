@@ -1,7 +1,7 @@
 # Airline-Reservation-Plattform
 
-- Thomas Molterer ic21b501
-- Stephan Weidinger ic21b064
+- Thomas Molterer (ic21b501@technikum-wien.at)
+- Stephan Weidinger (ic21b064@technikum-wien.at)
 
 ## Must Have Features (Genügend - 4)
 
