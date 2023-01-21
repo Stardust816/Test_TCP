@@ -36,7 +36,7 @@ Sitzpläne so “real” wie möglich in der GUI realisieren.
 
 Applikation für Airline Mitarbeiter zum Darstellen der gesamten Sitzplätze in einer GUI.
 
-#Program Description
+# Program Description
 The project includes 3 GUI Interfaces to control and interact with a server instance on port 1286, 1287, 1288.
 The idea is to make a small booking system for airplanes, which stores the data in files. The booking is done with a GUI, which loads the stored flight information and makes it possible to book new persons to a flight or delete them.
 A second GUI is for the User, who wants to check his flight information. With the combination of the flight number and the Passport number, the server will send the requested information.
