@@ -1,9 +1,12 @@
 package com.example.test_tcp;
 
+/**
+ * Interface for the Advertisements
+ */
 public interface Aircraft {
 
-    public abstract void Aircrafttype1();
-    public abstract void Aircrafttype2();
+    void Aircrafttype1();
 
+    void Aircrafttype2();
 
 }
