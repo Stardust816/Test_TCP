@@ -11,74 +11,31 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * ServerHandler shows a GUI which makes it possible to start Server 1 (1286) Server2 (1287) Server3 (1288)
+ * in Threads. It is also possible to stop them with the GUI
+ * To Start the Server in Threads is nessesary, because if they are started they are always lissen to the port
+ */
 public class ServerHandler extends Application {
 
-  Server1 s1;
- public Server1 s2;
- public Server1 s3;
- public Runnable ST1 = null; // Initialized as null and will be created in the ServerHandler constructor
- public Runnable ST2 = new ServerThread2();
- public Runnable ST3 = new ServerThread3();
- private final Thread th1 = new Thread(ST1); // Initialized here because of keyword final
- private final Thread th2 = new Thread(ST2);
- private final Thread th3 = new Thread(ST3);
+    public Server1 s1;
+    public Server1 s2;
+    public Server1 s3;
+    public Runnable ST1 = new ServerThread1(); // Initialized as null and will be created in the ServerHandler constructor
+    private final Thread th1 = new Thread(ST1);
+    public Runnable ST2 = new ServerThread2();
+    private final Thread th2 = new Thread(ST2);
+    public Runnable ST3 = new ServerThread3();
+    private final Thread th3 = new Thread(ST3);
 
- public ServerHandler() throws IOException {
+    public ServerHandler() throws IOException {
 
-    //Thread Server1 = new Thread();
-     ST1 = new ServerThread1();
-    //Thread Server2 = new Thread();
-    //Thread Server3 = new Thread();
 
-   //  th3.start();
-     //c = new Client(1287);
-     //   s2 = new Server1(1288);
-
-    // th1.start();
-    // th2.start();
-     //th3 = new Thread(ST3);
-    // th3.start();
+        //  ST1 = new ServerThread1();
+        //  public Thread th1 = new Thread(ST1);
 
 
     }
-
-    public class ServerThread1 extends Thread{
-        public void run(){
-
-            try {
-                s1 = new Server1(1286);
-                System.out.println("Server 1286 getsartet");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public class ServerThread2 extends Thread{
-        public void run(){
-
-            try {
-                s2 = new Server1(1287);
-                System.out.println("Server 1288 getsartet");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public class ServerThread3 extends Thread{
-        public void run(){
-
-            try {
-                s3 = new Server1(1288);
-                System.out.println("Server 1288 gestartet");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
 
     public void start(Stage stage) throws IOException {
         VBox outerVBox = new VBox();
@@ -93,34 +50,7 @@ public class ServerHandler extends Application {
         borderPane.setLayoutX(1000);
         borderPane.setLayoutY(800);
 
-    /*    TextArea NA = new TextArea();
-        NA.setPromptText("Passagier");
-        NA.setMaxHeight(4);
-        TextArea PA = new TextArea();
-        PA.setPromptText("PassportNumber");
-        PA.setMaxHeight(4);
-        TextArea FN = new TextArea();
-        FN.setPromptText("Flugnummer");
-        FN.setMaxHeight(4);
-        TextArea SI = new TextArea();
-        SI.setPromptText("Sitzplatz");
-        SI.setMaxHeight(4);
-        TextArea AP = new TextArea();
-        AP.setPromptText("Airplane");
-        AP.setMaxHeight(4);
-        TextArea DE = new TextArea();
-        DE.setPromptText("Departure");
-        DE.setMaxHeight(4);
-        TextArea AR = new TextArea();
-        AR.setPromptText("Arrival");
-        AR.setMaxHeight(4);
-        TextArea SR = new TextArea();
-        SR.setPromptText("Source");
-        SR.setMaxHeight(4);
-        TextArea DS = new TextArea();
-        DS.setPromptText("Destination");
-        DS.setMaxHeight(4);
-*/
+
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(0, 10, 0, 0));
@@ -142,7 +72,6 @@ public class ServerHandler extends Application {
         Button btnStopS1 = new Button("Stop S1");
         Button btnStopS2 = new Button("Stop S2");
         Button btnStopS3 = new Button("Stop S3");
-
 
 
         btnStartS1.setPrefWidth(200);
@@ -189,7 +118,7 @@ public class ServerHandler extends Application {
         });
 
         btnStopS1.setOnAction(event -> {
-            th1.interrupt();
+            th1.stop();
             btnStopS1.setVisible(false);
             btnStartS1.setVisible((true));
             Alert alert = new Alert(Alert.AlertType.WARNING, "Server1 wurde gestoppt", ButtonType.OK);
@@ -215,17 +144,63 @@ public class ServerHandler extends Application {
         });
 
 
-
-
-   outerVBox.getChildren().addAll(btnStartS1,btnStopS1,btnStartS2,btnStopS2,btnStartS3,btnStopS3, borderPane);
+        outerVBox.getChildren().addAll(btnStartS1, btnStopS1, btnStartS2, btnStopS2, btnStartS3, btnStopS3, borderPane);
         borderPane.setLeft(innerVBox);
-        innerVBox.getChildren().addAll(btnStartS1,btnStopS1,btnStartS2,btnStopS2,btnStartS3,btnStopS3);
+        innerVBox.getChildren().addAll(btnStartS1, btnStopS1, btnStartS2, btnStopS2, btnStartS3, btnStopS3);
         Scene scene = new Scene(outerVBox, 500, 500);
 
         stage.setTitle("ServerHandler");
         stage.setScene(scene);
 
         stage.show();
+    }
+
+    /**
+     * Thread Handler for Server 1 which supports the GUI for the booking system
+     */
+    public class ServerThread1 extends Thread {
+        public void run() {
+
+            try {
+                System.out.println("Server 1286 getsartet");
+                s1 = new Server1(1286);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Thread Handler for Server 2 which supports the GUI for the TicketReqestGUI
+     */
+    public class ServerThread2 extends Thread {
+        public void run() {
+
+            try {
+                System.out.println("Server 1287 getsartet");
+                s2 = new Server1(1287);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Thread Handler for Server 2 which supports the GUI for the ServerCLI
+     */
+    public class ServerThread3 extends Thread {
+        public void run() {
+
+            try {
+                System.out.println("Server 1288 gestartet");
+                s3 = new Server1(1288);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

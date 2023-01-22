@@ -1,8 +1,6 @@
 package com.example.test_tcp;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,13 +10,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Application TicketRequest gets the necesary parameters to run with a gui
+ * This Application is used to send requests to the server which includes Flightnumber and Passwort.
+ * If the server has this infomrations stored, it will send back the Informations about the flight
+ * This Client Application runs on port 1288 which is startet in the ServerHandler Application as Server 2
+ */
 public class Ticketrequest extends Application {
-    ObservableList<String> LogServer1 = FXCollections.<String>emptyObservableList();
-    private Client c;
+    // ObservableList<String> LogServer1 = FXCollections.<String>emptyObservableList();  wurde nicht implimentiert
+    public Client c;
 
     public Ticketrequest() throws IOException {
 
-        c = new Client(1288);
+        c = new Client(1287);
 
     }
 
@@ -29,7 +33,6 @@ public class Ticketrequest extends Application {
         outerVBox.setSpacing(10);
         outerVBox.setPrefHeight(1000);
         outerVBox.setPrefWidth(800);
-        //outerVBox.se(1800,10000);
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefHeight(1000);
         borderPane.setPrefWidth(800);
@@ -69,10 +72,9 @@ public class Ticketrequest extends Application {
         vbox.setPadding(new Insets(0, 10, 0, 0));
         vbox.setPrefWidth(800);
         vbox.setPrefHeight(1000);
-        //Scene scene = new Scene(outerVBox);
-        //BorderPane borderPane = new BorderPane();
+
         VBox innerVBox = new VBox();
-        //ListView<String> lvbag = new ListView<>();
+
 
         TextField fligntNumber = new TextField();
         fligntNumber.setPromptText("Flugnummer");
@@ -92,7 +94,7 @@ public class Ticketrequest extends Application {
             String pass = PassPort.getText();
 
             String seating = null;
-            String flights = null;
+            String flight = null;
 
             String flugnummer = null;
             String airplane = null;
@@ -109,9 +111,12 @@ public class Ticketrequest extends Application {
 
             String[] platzliste = null;
             String[] sitzplatz = null;
-            if(!(msg.isEmpty()) || !(pass.isEmpty())) {
-                seating = c.sendMessage("999;GET;flightnumber;"+msg);
-                flights = c.sendMessage(("999;GET;flightnumber;all"));
+            if (!(msg.isEmpty()) || !(pass.isEmpty())) {
+                seating = c.sendMessage("999;GET;flightnumber;" + msg);
+                System.out.println("Seating feedback: " + seating);
+                flight = c.sendMessage("999;GET;flightnumber;all");
+
+                System.out.println("Flight feedback: " + flight);
 
                 platzliste = seating.split(";");
                 for (int i = 0; i < platzliste.length; i++) {
@@ -122,7 +127,7 @@ public class Ticketrequest extends Application {
                         passnummer = sitzplatz[3];
                         i = platzliste.length;
                         //Abfrage vom Flug
-                        allflights = flights.split(";");
+                        allflights = flight.split(";");
                         for (int a = 0; a < allflights.length; a++) {
                             if (allflights[a].startsWith(msg)) {
                                 selectedflight = allflights[a].split("#");
@@ -160,33 +165,18 @@ public class Ticketrequest extends Application {
                 DS.setText(dest);
 
 
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Flugnummer und Passport eingeben", ButtonType.OK);
                 alert.show();
-         /*       sitz = "";
-                name = "";
-                passnummer = "";
-                flugnummer = "";
-                airplane = "";
-                dep = "";
-                arrival = "";
-                src = "";
-                dest = "";*/
+
             }
 
-            //ticketVBox.getChildren().addAll(FN,AP,DE,AR,SR,DS);
-
-            //Scene sceneticket = new Scene(ticketVBox, 300, 300);
-            //stage.setTitle("Buchungsinformationen: "+ flugnummer);
-            //stage.setScene(sceneticket);
-
-            //stage.show();
 
         });
 
-        outerVBox.getChildren().addAll(fligntNumber,PassPort,NA,PA, FN,SI,AP,DE,AR,SR,DS, borderPane);
+        outerVBox.getChildren().addAll(fligntNumber, PassPort, NA, PA, FN, SI, AP, DE, AR, SR, DS, borderPane);
         borderPane.setLeft(innerVBox);
-        innerVBox.getChildren().addAll(fligntNumber,PassPort,btnTransmit,NA,PA,FN,SI,AP,DE,AR,SR,DS);
+        innerVBox.getChildren().addAll(fligntNumber, PassPort, btnTransmit, NA, PA, FN, SI, AP, DE, AR, SR, DS);
         Scene scene = new Scene(outerVBox, 500, 500);
 
         stage.setTitle("TicketRequest");

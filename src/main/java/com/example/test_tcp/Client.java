@@ -4,17 +4,23 @@ import java.io.*;
 import java.net.Socket;
 import java.util.UUID;
 
+/**
+ * This class impliments the client
+ */
 public class Client {
 
     public static String response;
     public static PrintWriter out;
-
+    public static BufferedReader in;
+    private static Socket clientSocket;
     public String antwort;
 
-    private static Socket clientSocket;
-
-    public static BufferedReader in;
-
+    /**
+     * The Client needs to run a defined Source Port
+     * for later Use it will also generate a identifier, but this was not implimented
+     * @param Sc is the Source Port of the Server
+     * @throws IOException
+     */
     public Client(int Sc) throws IOException {
 
         //clientSocket = new Socket("192.168.8.164", 1286);
@@ -33,7 +39,12 @@ public class Client {
 
         }*/
 
-
+    /**
+     * Send message sends the Request to the Server Application and gets the Response, which is transferred
+     * the Response back to the Application, wo launched it
+     * @param msg
+     * @return
+     */
     public static String sendMessage(String msg) {
 
         UUID uniqueKey = UUID.randomUUID();
