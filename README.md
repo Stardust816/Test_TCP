@@ -48,12 +48,19 @@ The location is coded in the program itself. Before the server can start, they n
 # Get it Started
 Bevor you can start the Server, you need do adoped the Path for the files in the Server1.java
 The path are hard coded and need to be adopted to your directory
-If this is done, you need to start the Project in the right order:
-1. Start ServerHandler
-1.a.) Start the Server 1-3 (1 HalloApplication => Booking System; 2 TicketRequest => User Interface to get Flight Information; 3 => ServerCLI => direkt Interface to the Server)
-2.a.) Start HalloApplication
-2.b.) Start TicketRequest
-2.c.) Start ServerCLI
+If this is done, you need to start the Project in the right order:<br>
+1 Start ServerHandler
+ 
+2a.) Start the Server 1-3 
+
+	 1 HalloApplication => Booking System; 
+	 2 TicketRequest => User Interface to get Flight Information; 
+	 3 => ServerCLI => direkt Interface to the Server
+	 
+3 <br>
+a.) Start HalloApplication <br>
+  b.) Start TicketRequest <br>
+  c.) Start ServerCLI
 
 Now the System is running
 
