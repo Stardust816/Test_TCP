@@ -55,11 +55,26 @@ public class Server1 extends Application {
 
                         String[] parts = new String[4];
                         parts = srvMsgReceived.split(";");
-                        if (parts.length != 4) {
+                        if (parts.length <3) {
                             System.out.println("Laenge passt nicht");
                             bufferedWriter.write("Geh im RecycleBin");
                             bufferedWriter.newLine();
                             bufferedWriter.flush();
+                        }else if(parts.length ==3)
+                        {
+                            //666;SET/GET;flightnumber/airplane
+                            ID = parts[0];
+                            Command = parts[1];
+                            Operant1 = parts[2];
+                            if (Command.equals("GET")) {
+                                String text1 = GetHandler(Operant1);
+                                //logtext.addAll("Server -> Client: " + text1);
+                                bufferedWriter.write(text1);
+
+                            } else {
+                                //   logtext.add("Server -> Client: Wrong Request" + Command);
+                                bufferedWriter.write("Wrong Request => " + Command);
+                            }
 
                         } else {
                             ID = parts[0];
@@ -108,7 +123,16 @@ public class Server1 extends Application {
     }
 
     public String GetHandler(String Operant1, String Operant2) throws IOException {
-
+/*
+* MessageHandler
+*   handle();
+* FlightNumnberHandler extens MessageHandler
+* Sum(a1, a2)
+* Sum(a)
+*
+* AirplaneHandler extends MessageHandler
+*
+* */
         String line = null;
 
         if (Operant1.equals("flightnumber") && Operant2.equals("all")) {
@@ -169,7 +193,56 @@ public class Server1 extends Application {
         }
         return "noData";
     }
+    public String GetHandler(String Operant1) throws IOException {
+        /*
+         * MessageHandler
+         *   handle();
+         * FlightNumnberHandler extens MessageHandler
+         * Sum(a1, a2)
+         * Sum(a)
+         *
+         * AirplaneHandler extends MessageHandler
+         *
+         * */
+        String line = null;
 
+        if (Operant1.equals("flightnumber")) {
+            ArrayList<String> Flugnummern = new ArrayList<String>();
+            //BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\flightnumber.txt"));
+            BufferedReader bufReader = new BufferedReader(new FileReader("/Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/flightnumber.txt"));
+            line = bufReader.readLine();
+
+            while (line != null) {
+                Flugnummern.add(line);
+                line = bufReader.readLine();
+            }
+
+            bufReader.close();
+
+            String listString = String.join(";", Flugnummern);
+            System.out.println("FlugnummerString: " + listString);
+
+            return listString;
+
+        }else if (Operant1.equals("airplane")) {
+            ArrayList<String> Airplane = new ArrayList<String>();
+            //BufferedReader bufReader = new BufferedReader(new FileReader("C:\\Users\\molti\\IdeaProjects\\Test_TCP\\data\\airplane.txt"));
+            BufferedReader bufReader = new BufferedReader(new FileReader("Users/stephanweidinger/Documents/FH/3rd Semester/ODE/ODE Projekt/Test_TCP/data/airplane.txt"));
+            line = bufReader.readLine();
+
+            while (line != null) {
+                Airplane.add(line);
+                line = bufReader.readLine();
+            }
+            bufReader.close();
+
+            String listString1 = String.join("; ", Airplane);
+            System.out.println("FlugnummerString: " + listString1);
+            return listString1;
+
+        }
+        return "noData";
+    }
     /**
      * SetHandler beschreibt in Englsich
      *

@@ -20,7 +20,6 @@ public class Ticketrequest extends Application {
 
         c = new Client(1288);
 
-
     }
 
     public void start(Stage stage) throws IOException {

@@ -13,19 +13,20 @@ import java.io.IOException;
 
 public class ServerHandler extends Application {
 
- public Server1 s1;
+  Server1 s1;
  public Server1 s2;
  public Server1 s3;
- public Runnable ST1 = new ServerThread1();
+ public Runnable ST1 = null; // Initialized as null and will be created in the ServerHandler constructor
  public Runnable ST2 = new ServerThread2();
  public Runnable ST3 = new ServerThread3();
- public Thread th1 = new Thread(ST1);
- public Thread th2 = new Thread(ST2);
- public Thread th3 = new Thread(ST3);
+ private final Thread th1 = new Thread(ST1); // Initialized here because of keyword final
+ private final Thread th2 = new Thread(ST2);
+ private final Thread th3 = new Thread(ST3);
 
  public ServerHandler() throws IOException {
-    //Thread Server1 = new Thread();
 
+    //Thread Server1 = new Thread();
+     ST1 = new ServerThread1();
     //Thread Server2 = new Thread();
     //Thread Server3 = new Thread();
 
@@ -35,6 +36,7 @@ public class ServerHandler extends Application {
 
     // th1.start();
     // th2.start();
+     //th3 = new Thread(ST3);
     // th3.start();
 
 
@@ -187,7 +189,7 @@ public class ServerHandler extends Application {
         });
 
         btnStopS1.setOnAction(event -> {
-            th1.stop();
+            th1.interrupt();
             btnStopS1.setVisible(false);
             btnStartS1.setVisible((true));
             Alert alert = new Alert(Alert.AlertType.WARNING, "Server1 wurde gestoppt", ButtonType.OK);

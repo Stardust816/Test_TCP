@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 import static java.lang.System.out;
 
-public class HelloController extends Thread implements Initializable {
+public class HelloController extends Thread implements Initializable,Aircraft{
 
     //String host = "localhost";
     //int port = 1235;
@@ -199,7 +199,7 @@ public class HelloController extends Thread implements Initializable {
     @FXML
     private void onFlightNumberChanged(ActionEvent event) throws IOException {
 
-        String flugn = c.sendMessage("666;GET;flightnumber;all");
+        String flugn = c.sendMessage("666;GET;flightnumber;");
 
         if (flugn.isEmpty()){
             return;
@@ -330,6 +330,7 @@ public class HelloController extends Thread implements Initializable {
         }
         emptySeats.setItems(seatempty);
         bookedSeats.setItems(bookedseat);
+        Aircrafttype1();
     }
 
 
@@ -358,6 +359,7 @@ public class HelloController extends Thread implements Initializable {
         String [] seating = belegung.split(";");
         seatempty.clear();
         bookedseat.clear();
+
         for(int x = 0; x<seating.length ; x++)
         {
             String [] sitzteilung = seating[x].split("#");
@@ -370,6 +372,8 @@ public class HelloController extends Thread implements Initializable {
         }
         emptySeats.setItems(seatempty);
         bookedSeats.setItems(bookedseat);
+
+        Aircrafttype2();
 
     }
 
@@ -426,12 +430,11 @@ public class HelloController extends Thread implements Initializable {
 
     }
 
-
     //INITIALES ABFRAGEN ALLE FLÜGE
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            seating = c.sendMessage("666;GET;flightnumber;all");
+            seating = c.sendMessage("666;GET;flightnumber;");
             //c.getresponse();
             setChoiceBoxFlightnumber();
 
@@ -440,6 +443,22 @@ public class HelloController extends Thread implements Initializable {
             //e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void Aircrafttype1() {
+
+        //String Flugzeug = "Airbus A321";
+        txtMessage.appendText("AD: Enjoy our newest Aircraft the A321!");
+    }
+
+    @Override
+    public void Aircrafttype2() {
+
+        //String Flugzeug = "Airbus A321";
+        txtMessage.clear();
+        txtMessage.appendText("AD: We fly for your Smile");
+
     }
 
     /*public void clicked(MouseEvent mouseEvent) {
