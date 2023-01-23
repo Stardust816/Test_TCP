@@ -68,6 +68,8 @@ public class Server1 extends Application {
                                 String text1 = GetHandler(Operant1);
                                 //logtext.addAll("Server -> Client: " + text1);
                                 bufferedWriter.write(text1);
+                                bufferedWriter.newLine();
+                                bufferedWriter.flush();
 
                             } else {
                                 //   logtext.add("Server -> Client: Wrong Request" + Command);

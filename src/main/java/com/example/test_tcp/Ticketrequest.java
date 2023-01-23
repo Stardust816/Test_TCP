@@ -114,7 +114,7 @@ public class Ticketrequest extends Application {
             if (!(msg.isEmpty()) || !(pass.isEmpty())) {
                 seating = c.sendMessage("999;GET;flightnumber;" + msg);
                 System.out.println("Seating feedback: " + seating);
-                flight = c.sendMessage("999;GET;flightnumber;all");
+                flight = c.sendMessage("999;GET;flightnumber");
 
                 System.out.println("Flight feedback: " + flight);
 

@@ -1,5 +1,4 @@
-OS875#1propp#Dep:23.1.2022-15:20#Arr:24.1.2022-05:00#Src:Graz#Dest:Salzburg
-OS878#privjet#Dep:23.1.2022-15:20#Arr:24.1.2022-05:00#Src:Linz#Dest:Wien
+OS876#privjet#Dep:23.1.2022-15:20#Arr:24.1.2022-05:00#Src:Linz#Dest:Salzburg
 OS855#1propp#Dep:3.5.2022-23:20#Arr:4.5.2022-05:00#Src:Wien Praterstern#Dest:Zwettel
 OS111#1propp#Dep:20.5.2022-23:20#Arr:20.5.2022-05:00#Src:Wien Floridsdorf#Dest:SingSing
 OS444#1propp#Dep:19.1.2022-23:20#Arr:20.1.2022-05:00#Src:Flordsdorf#Dest:SingSing
