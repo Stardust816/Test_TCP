@@ -12,8 +12,7 @@ public class Client {
     public static String response;
     public static PrintWriter out;
     public static BufferedReader in;
-    private static Socket clientSocket;
-    public String antwort;
+
 
     /**
      * The Client needs to run a defined Source Port
@@ -24,7 +23,7 @@ public class Client {
     public Client(int Sc) throws IOException {
 
         //clientSocket = new Socket("192.168.8.164", 1286);
-        clientSocket = new Socket("localhost", Sc);
+        Socket clientSocket = new Socket("localhost", Sc);
 
 
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -56,8 +55,6 @@ public class Client {
 
             //Hier wird Antwort vom Server ausgegeben
             response = in.readLine();
-            String antwort;
-            antwort = response;
             System.out.println(response);
 
             //Response aufteilen
@@ -72,14 +69,6 @@ public class Client {
         }
         return response;
     }
-
-
-    public void setClientSocket(Socket clientSocket) {
-
-        this.clientSocket = clientSocket;
-
-    }
-
 }
 
 

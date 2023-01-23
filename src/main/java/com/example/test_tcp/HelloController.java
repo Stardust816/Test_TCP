@@ -13,18 +13,19 @@ import java.util.ResourceBundle;
 
 public class HelloController extends Thread implements Initializable, Aircraft {
 
-    private final Client c;
     ObservableList<Object> listFlightnumber = FXCollections.observableArrayList();
     ObservableList<Object> seatempty = FXCollections.observableArrayList();
     ObservableList<Object> bookedseat = FXCollections.observableArrayList();
     String seating;
-    @FXML
-    private TextField txtMessage;
+
 
 
     //----------------------------------------------------------
+
     @FXML
-    private ComboBox flightNumber;
+    private TextField txtMessage;
+    @FXML
+    private ComboBox<Object> flightNumber;
     @FXML
     private TextField timearr;
     @FXML
@@ -36,15 +37,15 @@ public class HelloController extends Thread implements Initializable, Aircraft {
     @FXML
     private TextField airp;
     @FXML
-    private ListView emptySeats;
+    private ListView<Object> emptySeats;
     @FXML
-    private ListView bookedSeats;
+    private ListView<Object> bookedSeats;
     @FXML
     private TextField name;
-
-    //-------------------------------------------------------
     @FXML
     private TextField reisepass;
+
+    //-------------------------------------------------------
 
 
     /**
@@ -53,7 +54,7 @@ public class HelloController extends Thread implements Initializable, Aircraft {
      * @throws IOException
      */
     public HelloController() throws IOException {
-        c = new Client(1286);
+        Client c = new Client(1286);
     }
 
     /**
@@ -68,7 +69,6 @@ public class HelloController extends Thread implements Initializable, Aircraft {
             return;
         }
 
-        String flug = flightNumber.getSelectionModel().getSelectedItem().toString();
         String airpl = null;
         String arrival = null;
         String departure = null;
@@ -81,9 +81,7 @@ public class HelloController extends Thread implements Initializable, Aircraft {
 
             if (antwort[i].startsWith(nummer)) {
 
-                String[] flugdaten = null;
-                flugdaten = antwort[i].split("#");
-                flug = flugdaten[0];
+                String[] flugdaten = antwort[i].split("#");
                 airpl = flugdaten[1];
                 departure = flugdaten[2];
                 arrival = flugdaten[3];
@@ -100,9 +98,7 @@ public class HelloController extends Thread implements Initializable, Aircraft {
             timearr.setText(arrival);
             airp.setText(airpl);
 
-            String belegung = null;
-
-            belegung = Client.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
+            String belegung = Client.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
 
             String[] seating = belegung.split(";");
             seatempty.clear();
@@ -131,13 +127,10 @@ public class HelloController extends Thread implements Initializable, Aircraft {
         String wo = emptySeats.getSelectionModel().getSelectedItem().toString();
         String reise = "#R" + reisepass.getText();
         System.out.println(reise);
-        String buch = null;
-        buch = ("666;SET;" + flightNumber.getSelectionModel().getSelectedItem().toString() + ";book," + wo.trim() + wer.trim() + reise);
+        String buch = ("666;SET;" + flightNumber.getSelectionModel().getSelectedItem().toString() + ";book," + wo.trim() + wer.trim() + reise);
         Client.sendMessage(buch);
 
-        String belegung = null;
-
-        belegung = Client.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
+        String belegung = Client.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
 
         String[] seating = belegung.split(";");
         seatempty.clear();
@@ -152,6 +145,7 @@ public class HelloController extends Thread implements Initializable, Aircraft {
         }
         emptySeats.setItems(seatempty);
         bookedSeats.setItems(bookedseat);
+
         Aircrafttype1();
     }
 
@@ -162,22 +156,17 @@ public class HelloController extends Thread implements Initializable, Aircraft {
     @FXML
     private void delete() {
 
-        String wer = name.getText();
         String wo = bookedSeats.getSelectionModel().getSelectedItem().toString();
         String[] newwo = wo.split("#");
         String del = newwo[0] + "#" + newwo[1] + "#";
 
 
-        String reise = "#R" + reisepass.getText();
-        String buch = null;
-        buch = ("666;SET;" + flightNumber.getSelectionModel().getSelectedItem().toString() + ";book," + del.trim());
+        String buch = ("666;SET;" + flightNumber.getSelectionModel().getSelectedItem().toString() + ";book," + del.trim());
         System.out.println(del);
         Client.sendMessage(buch);
 
         bookedseat.remove(wo);
-        String belegung = null;
-
-        belegung = Client.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
+        String belegung = Client.sendMessage("666;GET;flightnumber;" + flightNumber.getSelectionModel().getSelectedItem().toString());
 
         String[] seating = belegung.split(";");
         seatempty.clear();
@@ -206,13 +195,6 @@ public class HelloController extends Thread implements Initializable, Aircraft {
      */
     private void setChoiceBoxFlightnumber() throws IOException {
 
-        String flug = null;
-        String airp = null;
-        String arrival = null;
-        String departure = null;
-        String source = null;
-        String destination = null;
-
         if (Client.response == null) {
             return;
         }
@@ -221,17 +203,9 @@ public class HelloController extends Thread implements Initializable, Aircraft {
 
         String[] antwort = response.split(";");
         for (String s : antwort) {
-            String[] flugdaten = null;
-            flugdaten = s.split("#");
-            flug = flugdaten[0];
+            String[] flugdaten = s.split("#");
 
             listFlightnumber.add(flugdaten[0]);
-
-            airp = flugdaten[1];
-            departure = flugdaten[2];
-            arrival = flugdaten[3];
-            source = flugdaten[4];
-            destination = flugdaten[5];
 
         }
         flightNumber.getItems().addAll(listFlightnumber);
