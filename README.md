@@ -64,5 +64,5 @@ If this is done, you need to start the Project in the right order:<br>
 
 Now the system is running.
 
-To stop everything you can close the GUI interfaces for interaction with the server
+To stop everything you can close the GUI interfaces for interaction with the server. <br>
 The last step ist to stop the server's with the stop button or to close the ServerHandler Application.
