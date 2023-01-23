@@ -39,30 +39,30 @@ Applikation für Airline Mitarbeiter zum Darstellen der gesamten Sitzplätze in 
 # Program Description
 The project includes 3 GUI Interfaces to control and interact with a server instance on port 1286, 1287, 1288.
 The idea is to make a small booking system for airplanes, which stores the data in files. The booking is done with a GUI, which loads the stored flight information and makes it possible to book new persons to a flight or delete them.
-A second GUI is for the User, who wants to check his flight information. With the combination of the flight number and the Passport number, the server will send the requested information.
+A second GUI is for the user, who wants to check his flight information. With the combination of the flight number and the Passport number, the server will send the requested information.
 The last GUI starts and stops the server instances.
 Before you work with the GUIs, which are responsible for interacting with the server, you need to start the “ServerHandler.java” to start the server instances in different threads. After this, the other GUIs can communicate with them.
-The data are stored in different .txt files which are included in the project directory.
+The data is stored in different .txt files which are included in the project directory.
 The location is coded in the program itself. Before the server can start, they need to be adopted.
 
 # Get it Started
-Bevor you can start the Server, you need do adoped the Path for the files in the Server1.java
-The path are hard coded and need to be adopted to your directory
+Bevor you can start the server, you need do adopt the path for the files in the Server1.java.
+The paths are hard coded and need to be adopted to your directory.
 If this is done, you need to start the Project in the right order:<br>
-1 Start ServerHandler
+1) Start ServerHandler
  
 2a.) Start the Server 1-3 
 
 	 1 HalloApplication => Booking System; 
-	 2 TicketRequest => User Interface to get Flight Information; 
-	 3 => ServerCLI => direkt Interface to the Server
+	 2 TicketRequest => User interface to get Flight Information; 
+	 3 => ServerCLI => direct interface to the Server
 	 
-3 <br>
+3) <br>
 a.) Start HalloApplication <br>
   b.) Start TicketRequest <br>
   c.) Start ServerCLI
 
-Now the System is running
+Now the system is running.
 
-To Stop everything you can close the GUI Interfaces for interaction with the Server
-The last step ist to Stop the Server's with the Stop Button or to close the ServerHandler Application
+To stop everything you can close the GUI interfaces for interaction with the server
+The last step ist to stop the server's with the stop button or to close the ServerHandler Application.
