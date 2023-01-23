@@ -51,16 +51,16 @@ The paths are hard coded and need to be adopted to your directory.
 If this is done, you need to start the Project in the right order:<br>
 1) Start ServerHandler
  
-2a.) Start the Server 1-3 
+2) Start the Server 1-3 
 
-	 1 HalloApplication => Booking System; 
-	 2 TicketRequest => User interface to get Flight Information; 
-	 3 => ServerCLI => direct interface to the Server
+	 1) HalloApplication => Booking System; 
+	 2) TicketRequest => User interface to get Flight Information; 
+	 3) => ServerCLI => direct interface to the Server
 	 
 3) <br>
-a.) Start HalloApplication <br>
-  b.) Start TicketRequest <br>
-  c.) Start ServerCLI
+	1) Start HalloApplication <br>
+  	2) Start TicketRequest <br>
+  	3) Start ServerCLI
 
 Now the system is running.
 
